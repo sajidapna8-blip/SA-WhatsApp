@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WA 2026 ULTRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #00a884; --bg: #ffffff; --chat-bg: #efeae2; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: var(--bg); overflow: hidden; height: 100vh; }
+
+        /* Header */
+        .header { padding: 15px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Chat List */
+        #main-view { display: flex; flex-direction: column; height: 100vh; }
+        .chat-card { padding: 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #f0f2f5; }
+        .user-pic { width: 50px; height: 50px; border-radius: 50%; background: #dfe5e7; display: flex; align-items: center; justify-content: center; color: white; }
+
+        /* Chat View */
+        #chat-view { display: none; flex-direction: column; height: 100vh; background: var(--chat-bg); position: fixed; inset: 0; z-index: 2000; }
+        .chat-header { padding: 10px; background: #f0f2f5; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #ddd; }
+        
+        .messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 15px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .sent { align-self: flex-end; background: #d9fdd3; }
+        .received { align-self: flex-start; background: #fff; }
+
+        /* Input Area (یہاں سارے بٹن واپس آ گئے) */
+        .input-bar { padding: 10px; background: #f0f2f5; display: flex; gap: 8px; align-items: center; }
+        .input-box { flex: 1; background: white; padding: 10px 15px; border-radius: 25px; display: flex; align-items: center; gap: 10px; }
+        .input-box input { flex: 1; border: none; outline: none; font-size: 16px; }
+        .icon-btn { color: #667781; font-size: 20px; cursor: pointer; }
+        .send-btn { background: var(--primary); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        .nav { background: white; padding: 15px; display: flex; justify-content: space-around; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div id="main-view">
+        <div class="header"><h2>WhatsApp</h2><i class="fas fa-search"></i></div>
+        <div class="chat-list">
+            <div class="chat-card" onclick="openChat('Shakeel Czn')">
+                <div class="user-pic"><i class="fas fa-user"></i></div>
+                <div><h4>Shakeel Czn</h4><p style="color:#667781; font-size:13px;">Online</p></div>
+            </div>
+        </div>
+        <div class="nav"><i class="fas fa-comment" style="color:var(--primary)"></i><i class="fas fa-circle-notch"></i><i class="fas fa-phone"></i></div>
+    </div>
+
+    <div id="chat-view">
+        <div class="chat-header">
+            <i class="fas fa-arrow-left" onclick="closeChat()" style="color:var(--primary); padding: 5px;"></i>
+            <div class="user-pic" style="width:35px; height:35px;"><i class="fas fa-user"></i></div>
+            <h3 id="chat-name" style="font-size:16px;">User</h3>
+        </div>
+        <div class="messages" id="box">
+            <div class="msg received">اب تمام فیچرز واپس آ گئے ہیں!</div>
+        </div>
+        <div class="input-bar">
+            <div class="input-box">
+                <i class="far fa-smile icon-btn"></i>
+                <input type="text" id="in" placeholder="پیغام لکھیں...">
+                <i class="fas fa-paperclip icon-btn"></i> <i class="fas fa-camera icon-btn"></i>
+            </div>
+            <button class="send-btn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function openChat(name) {
+            document.getElementById('chat-name').innerText = name;
+            document.getElementById('chat-view').style.display = 'flex';
+        }
+        function closeChat() { document.getElementById('chat-view').style.display = 'none'; }
+        function send() {
+            const i = document.getElementById('in');
+            const b = document.getElementById('box');
+            if(i.value.trim() !== "") {
+                const d = document.createElement('div');
+                d.className = 'msg sent';
+                d.innerText = i.value;
+                b.appendChild(d);
+                i.value = "";
+                b.scrollTop = b.scrollHeight;
+            }
+        }
+    </script>
+</body>
+  </html>
+  
