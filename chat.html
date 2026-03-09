@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Screen</title>
+    <style>
+        /* ساجد بھائی، یہ ڈیزائن بالکل اصلی واٹس ایپ جیسا ہے */
+        body { margin: 0; font-family: sans-serif; background-color: #e5ddd5; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); }
+        
+        /* ٹاپ پٹی */
+        .wa-header { background: #075e54; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; box-sizing: border-box; z-index: 1000; }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .back-btn { text-decoration: none; color: white; font-size: 20px; padding-right: 5px; }
+        .avatar { width: 35px; height: 35px; background: #ccc; border-radius: 50%; }
+        .header-icons { display: flex; gap: 15px; }
+
+        /* نیچے والی میسج پٹی */
+        .wa-footer { position: fixed; bottom: 8px; width: 100%; display: flex; padding: 0 8px; gap: 8px; align-items: center; box-sizing: border-box; }
+        .input-bar { flex: 1; background: white; border-radius: 25px; padding: 5px 12px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .input-bar input { border: none; outline: none; flex: 1; font-size: 16px; padding: 8px 0; }
+        
+        /* ہرا بٹن (مائیک اور سینڈ کے لیے) */
+        .action-button { background-color: #00a884; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.3); cursor: pointer; border: none; }
+    </style>
+</head>
+<body>
+
+    <div class="wa-header">
+        <div class="header-left">
+            <a href="index.html" class="back-btn">←</a>
+            <div class="avatar"></div>
+            <strong>Shakeel czn</strong>
+        </div>
+        <div class="header-right header-icons">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1-.45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>⋮</span>
+        </div>
+    </div>
+
+    <div class="wa-footer">
+        <div class="input-bar">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#888"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm.5 4c.53 2.11 2.43 3.5 4.5 3.5s3.97-1.39 4.5-3.5H9z"/></svg>
+            <input type="text" id="msgInput" placeholder="Message">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#888" style="transform: rotate(-45deg);"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.31 2.69 6 6 6s6-2.69 6-6V6h-1.5z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#888"><circle cx="12" cy="12" r="3.2"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+        </div>
+        <button class="action-button" id="mainBtn">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="white" id="micIcon"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </button>
+    </div>
+
+    <script>
+        // ساجد بھائی، یہ حصہ ٹائپنگ چیک کر کے بٹن بدلتا ہے
+        const msgInput = document.getElementById('msgInput');
+        const mainBtn = document.getElementById('mainBtn');
+
+        // مائیک اور سینڈ کے ڈیزائن (SVG)
+        const micSVG = '<svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>';
+        const sendSVG = '<svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>';
+
+        msgInput.addEventListener('input', function() {
+            if (msgInput.value.trim() !== "") {
+                // کچھ لکھنے پر سینڈ بٹن دکھائیں
+                mainBtn.innerHTML = sendSVG;
+            } else {
+                // خالی ہونے پر واپس مائیک دکھائیں
+                mainBtn.innerHTML = micSVG;
+            }
+        });
+    </script>
+
+</body>
+                                                                          </html>
+                                                                          
