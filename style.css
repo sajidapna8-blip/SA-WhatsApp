@@ -1,0 +1,39 @@
+/* جنرل سٹائل */
+body { margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.whatsapp-bg { background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-color: #e5ddd5; background-size: contain; }
+
+/* ہیڈر */
+.chat-header { background: #075e54; color: white; padding: 10px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.header-left { display: flex; align-items: center; gap: 8px; }
+.back-icon { text-decoration: none; color: white; font-size: 20px; }
+.profile-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.header-info { display: flex; flex-direction: column; line-height: 1.2; }
+.header-info strong { font-size: 16px; }
+.header-info span { font-size: 11px; opacity: 0.9; }
+
+/* میسجز کا ڈیزائن */
+.chat-container { padding: 10px; display: flex; flex-direction: column; gap: 10px; padding-bottom: 70px; }
+.msg-row { display: flex; gap: 8px; align-items: flex-end; }
+.sender-thumb { width: 28px; height: 28px; border-radius: 50%; }
+.msg-bubble { background: white; padding: 6px 10px; border-radius: 0 10px 10px 10px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); position: relative; min-width: 150px; }
+.name-label { font-size: 12px; font-weight: bold; color: #d67d00; display: block; margin-bottom: 4px; }
+
+/* اصلی وائس پلیئر ڈیزائن */
+.voice-player { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+.play-icon { font-size: 20px; color: #777; }
+.audio-waves { flex: 1; display: flex; align-items: center; gap: 2px; height: 20px; }
+.wave { width: 3px; height: 100%; background: #bbb; border-radius: 2px; }
+.mini-mic { width: 18px; height: 18px; opacity: 0.6; }
+
+/* میسج ٹائم */
+.msg-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; font-size: 10px; color: #888; }
+
+/* فائنل مائیک اور ان پٹ پٹی */
+.chat-footer { position: fixed; bottom: 8px; width: 100%; display: flex; align-items: center; gap: 8px; padding: 0 8px; box-sizing: border-box; }
+.input-wrapper { flex: 1; background: white; border-radius: 25px; padding: 8px 15px; display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.input-wrapper input { border: none; outline: none; flex: 1; font-size: 16px; background: transparent; }
+.input-wrapper span { color: #888; font-size: 20px; }
+
+/* اصلی گول مائیک بٹن */
+.mic-button { background: #00a884; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+  
