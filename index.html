@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA 2026 ULTRA - BY SAJID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --primary: #00ffa3; 
+            --bg: #0b0e11; 
+            --card: #1c2127; 
+            --msg-sent: #005c4b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: white; overflow: hidden; height: 100vh; }
+
+        /* 1. Splash Screen */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 5000;
+        }
+        .loader-icon { font-size: 80px; color: var(--primary); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.5; } }
+
+        /* 2. Main View */
+        #main-view { display: none; flex-direction: column; height: 100vh; }
+        .header { padding: 18px; display: flex; justify-content: space-between; align-items: center; background: rgba(11, 14, 17, 0.9); border-bottom: 1px solid rgba(0, 255, 163, 0.1); }
+        .header h1 { font-size: 22px; color: var(--primary); font-weight: bold; }
+        
+        .chat-list { padding: 15px; overflow-y: auto; flex: 1; }
+        .chat-card { background: var(--card); margin-bottom: 12px; padding: 15px; border-radius: 18px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .user-pic { width: 50px; height: 50px; border-radius: 50%; background: #54656f; display: flex; align-items: center; justify-content: center; }
+
+        /* 3. Chat View */
+        #chat-view { display: none; flex-direction: column; height: 100vh; background: #000; position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; }
+        .chat-header { padding: 15px; background: var(--card); display: flex; align-items: center; gap: 15px; }
+        .messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-alpha: 0.1; }
+        .msg { max-width: 80%; padding: 10px; border-radius: 12px; font-size: 14px; }
+        .sent { align-self: flex-end; background: var(--msg-sent); }
+        .received { align-self: flex-start; background: var(--card); }
+
+        .input-bar { padding: 15px; background: var(--bg); display: flex; gap: 10px; align-items: center; }
+        .input-bar input { flex: 1; background: var(--card); border: 1px solid var(--primary); padding: 12px; border-radius: 25px; color: white; outline: none; }
+        .send-btn { background: var(--primary); border: none; width: 45px; height: 45px; border-radius: 50%; color: #000; }
+        
+        .nav { position: fixed; bottom: 15px; left: 15px; right: 15px; background: rgba(28, 33, 39, 0.9); padding: 12px; border-radius: 20px; display: flex; justify-content: space-around; }
+    </style>
+</head>
+<body>
+
+    <div id="splash">
+        <div class="loader-icon"><i class="fab fa-whatsapp"></i></div>
+        <div style="margin-top:20px; color:var(--primary); font-weight:bold;">SAJID 2026 ULTRA</div>
+    </div>
+
+    <div id="main-view">
+        <div class="header">
+            <h1>WhatsApp</h1>
+            <div style="display:flex; gap:20px; color:var(--primary);">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </div>
+        <div class="chat-list">
+            <div class="chat-card" onclick="openChat('Shakeel Czn')">
+                <div class="user-pic"><i class="fas fa-user"></i></div>
+                <div><h4>Shakeel Czn</h4><p style="font-size:12px; color:#888;">Online</p></div>
+            </div>
+        </div>
+        <div class="nav">
+            <i class="fas fa-comment-dots" style="color:var(--primary);"></i>
+            <i class="fas fa-circle-notch"></i>
+            <i class="fas fa-phone"></i>
+        </div>
+    </div>
+
+    <div id="chat-view">
+        <div class="chat-header">
+            <i class="fas fa-arrow-left" onclick="closeChat()"></i>
+            <h3 id="chat-name">Name</h3>
+        </div>
+        <div class="messages" id="message-box"></div>
+        <div class="input-bar">
+            <input type="text" id="msgInput" placeholder="Type a message...">
+            <button class="send-btn" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('splash').style.display = 'none';
+            document.getElementById('main-view').style.display = 'flex';
+        }, 2000);
+
+        function openChat(name) {
+            document.getElementById('chat-name').innerText = name;
+            document.getElementById('chat-view').style.display = 'flex';
+        }
+
+        function closeChat() {
+            document.getElementById('chat-view').style.display = 'none';
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('msgInput');
+            const box = document.getElementById('message-box');
+            if(input.value.trim() !== "") {
+                const div = document.createElement('div');
+                div.className = 'msg sent';
+                div.innerText = input.value;
+                box.appendChild(div);
+                input.value = "";
+                box.scrollTop = box.scrollHeight;
+            }
+        }
+    </script>
+</body>
+  </html>
+  
