@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Classic</title>
+    <style>
+        /* ساجد بھائی، یہ وہ کلاسک سبز ڈیزائن ہے */
+        body { margin: 0; font-family: sans-serif; background-color: #fff; }
+
+        /* اوپر والی سبز پٹی */
+        .wa-header {
+            background-color: #075e54;
+            color: white;
+            padding: 15px 15px 5px 15px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .header-top h1 { font-size: 20px; margin: 0; }
+
+        .header-icons { display: flex; gap: 20px; align-items: center; }
+
+        /* ٹیبز (CHATS, STATUS, CALLS) */
+        .wa-tabs {
+            display: flex;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.7);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: white;
+            border-bottom: 3px solid white;
+        }
+
+        /* چیٹ لسٹ */
+        .chat-row {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .chat-info { flex: 1; }
+
+        .chat-name-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .chat-name-row strong { font-size: 17px; }
+
+        .time { font-size: 12px; color: #075e54; font-weight: bold; }
+
+        .msg-preview {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .unread-dot {
+            background-color: #25d366;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wa-header">
+        <div class="header-top">
+            <h1>WhatsApp</h1>
+            <div class="header-icons">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <span>⋮</span>
+            </div>
+        </div>
+
+        <div class="wa-tabs">
+            <div class="tab">CALLS</div>
+            <div class="tab active">CHATS</div>
+            <div class="tab">CONTACTS</div>
+        </div>
+    </div>
+
+    <a href="chat.html" class="chat-row">
+        <div class="avatar"></div>
+        <div class="chat-info">
+            <div class="chat-name-row">
+                <strong>Sweet family</strong>
+                <span class="time">1:15 PM</span>
+            </div>
+            <div class="chat-name-row">
+                <div class="msg-preview">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="#888" style="margin-right:3px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+                    Voice message...
+                </div>
+                <div class="unread-dot">1</div>
+            </div>
+        </div>
+    </a>
+
+</body>
+  </html>
+  
