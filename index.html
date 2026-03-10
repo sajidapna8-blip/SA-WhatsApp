@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAJID WHATSAPP PRO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #00a884; --bg: #ffffff; --chat-bg: #efeae2; --msg-sent: #d9fdd3; --ai-color: #e0f7fa; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); overflow: hidden; height: 100vh; width: 100vw; display: flex; flex-direction: column; }
+
+        /* Header */
+        .header { padding: 15px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .header h1 { font-size: 20px; font-weight: 600; }
+
+        /* Main View */
+        #main-view { display: flex; flex-direction: column; height: calc(100vh - 65px); width: 100vw; }
+        .chat-list { flex: 1; overflow-y: auto; background: white; padding-bottom: 20px; }
+        .section-label { padding: 10px 15px; background: #f0f2f5; font-size: 12px; color: #667781; font-weight: bold; text-transform: uppercase; }
+        
+        .chat-card { padding: 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #f0f2f5; cursor: pointer; }
+        .user-pic { width: 50px; height: 50px; border-radius: 50%; background: #dfe5e7; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; overflow: hidden; }
+        .user-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Chat View */
+        #chat-view { display: none; flex-direction: column; height: 100vh; width: 100vw; background: var(--chat-bg); position: fixed; inset: 0; z-index: 2000; }
+        .chat-header { padding: 10px; background: #f0f2f5; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #ddd; flex-shrink: 0; }
+        .back-btn { color: var(--primary); font-size: 20px; padding: 5px; cursor: pointer; }
+        
+        .messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 15px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .sent { align-self: flex-end; background: var(--msg-sent); border-top-right-radius: 0; }
+        .received { align-self: flex-start; background: #ffffff; border-top-left-radius: 0; }
+        .ai-msg { background: var(--ai-color); border-left: 3px solid var(--primary); }
+
+        /* Input Bar */
+        .input-bar { padding: 10px; background: #f0f2f5; display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .input-box { flex: 1; background: white; padding: 10px 15px; border-radius: 25px; display: flex; align-items: center; gap: 12px; }
+        .input-box input { flex: 1; border: none; outline: none; font-size: 16px; background: transparent; }
+        .send-btn { background: var(--primary); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        
+        /* Navigation */
+        .nav { background: white; padding: 10px; display: flex; justify-content: space-around; border-top: 1px solid #eee; height: 65px; flex-shrink: 0; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #667781; font-size: 11px; cursor: pointer; }
+        .nav-item i { font-size: 20px; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <div id="main-view">
+        <div class="header">
+            <h1>WhatsApp Pro</h1>
+            <div style="display:flex; gap:20px;"><i class="fas fa-search"></i><i class="fas fa-ellipsis-v"></i></div>
+        </div>
+        
+        <div class="chat-list">
+            <div class="section-label">AI Intelligence</div>
+            <div class="chat-card" onclick="openChat('AI Assistant (IB)', 'https://i.imgur.com/8N7fX8M.png')">
+                <div class="user-pic"><img src="https://i.imgur.com/8N7fX8M.png" alt="AI"></div>
+                <div style="flex:1">
+                    <div style="display:flex; justify-content:space-between;"><h4>AI Assistant (IB)</h4><span style="font-size:12px; color:var(--primary)">Online</span></div>
+                    <p style="color:#667781; font-size:13px;">Sajid Bhai, AI is ready to help you! 🤖</p>
+                </div>
+            </div>
+
+            <div class="section-label">Groups</div>
+            <div class="chat-card" onclick="openChat('Sajid Tech Group')">
+                <div class="user-pic" style="background:var(--primary)"><i class="fas fa-users"></i></div>
+                <div style="flex:1">
+                    <div style="display:flex; justify-content:space-between;"><h4>Sajid Tech Group</h4><span style="font-size:12px; color:#667781">12:30 PM</span></div>
+                    <p style="color:#667781; font-size:13px;"><b>Shakeel:</b> Welcome to the new version!</p>
+                </div>
+            </div>
+
+            <div class="section-label">Direct Chats</div>
+            <div class="chat-card" onclick="openChat('Shakeel Czn')">
+                <div class="user-pic"><i class="fas fa-user"></i></div>
+                <div style="flex:1">
+                    <div style="display:flex; justify-content:space-between;"><h4>Shakeel Czn</h4><span style="font-size:12px; color:#667781">Yesterday</span></div>
+                    <p style="color:#667781; font-size:13px;">Sajid Bhai, this looks so professional.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav-item active"><i class="fas fa-comment-dots"></i>Chats</div>
+        <div class="nav-item"><i class="fas fa-circle-notch"></i>Status</div>
+        <div class="nav-item"><i class="fas fa-users"></i>Communities</div>
+        <div class="nav-item"><i class="fas fa-phone"></i>Calls</div>
+    </div>
+
+    <div id="chat-view">
+        <div class="chat-header">
+            <i class="fas fa-arrow-left back-btn" onclick="closeChat()"></i>
+            <div class="user-pic" id="chat-pic" style="width:38px; height:38px;"><i class="fas fa-user"></i></div>
+            <div style="flex:1"><h3 id="chat-name" style="font-size:16px;">User</h3><p style="font-size:11px; color:var(--primary)">Online</p></div>
+            <i class="fas fa-video" style="color:var(--primary); margin-right:15px;"></i>
+            <i class="fas fa-phone" style="color:var(--primary);"></i>
+        </div>
+        <div class="messages" id="box">
+            <div class="msg received">السلام علیکم ساجد بھائی! یہ آپ کی ایپ کا فائنل "Ultra AI" ورژن ہے۔</div>
+        </div>
+        <div class="input-bar">
+            <div class="input-box">
+                <i class="far fa-smile icon-btn"></i>
+                <input type="text" id="in" placeholder="Type a message...">
+                <i class="fas fa-paperclip icon-btn"></i>
+                <i class="fas fa-camera icon-btn"></i>
+            </div>
+            <button class="send-btn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        let currentChat = '';
+        function openChat(name, picUrl) {
+            currentChat = name;
+            document.getElementById('chat-name').innerText = name;
+            const chatPic = document.getElementById('chat-pic');
+            chatPic.innerHTML = picUrl ? `<img src="${picUrl}">` : `<i class="fas fa-user"></i>`;
+            document.getElementById('chat-view').style.display = 'flex';
+            document.getElementById('main-view').style.display = 'none';
+        }
+        function closeChat() {
+            document.getElementById('chat-view').style.display = 'none';
+            document.getElementById('main-view').style.display = 'flex';
+        }
+        function send() {
+            const i = document.getElementById('in');
+            const b = document.getElementById('box');
+            if(i.value.trim() !== "") {
+                const d = document.createElement('div');
+                d.className = 'msg sent';
+                d.innerText = i.value;
+                b.appendChild(d);
+                const userMsg = i.value;
+                i.value = "";
+                b.scrollTop = b.scrollHeight;
+
+                if (currentChat.includes('AI')) {
+                    setTimeout(() => {
+                        const r = document.createElement('div');
+                        r.className = 'msg received ai-msg';
+                        r.innerText = "AI Assistant: ساجد بھائی، میں نے آپ کا میسج پڑھ لیا ہے۔ میں آپ کی بھرپور مدد کروں گا!";
+                        b.appendChild(r);
+                        b.scrollTop = b.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+</body>
+  </html>
+  
