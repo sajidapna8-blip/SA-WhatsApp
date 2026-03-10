@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Sajid Ultra Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #00a884; --bg: #ffffff; --chat-bg: #efeae2; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
+        body, html { height: 100%; width: 100%; overflow: hidden; position: fixed; background: white; }
+
+        /* Header */
+        .header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Lists */
+        #main-view { height: 100%; display: flex; flex-direction: column; }
+        .chat-list { flex: 1; overflow-y: auto; padding-bottom: 90px; }
+        .section-label { padding: 10px 15px; background: #f0f2f5; font-size: 13px; color: var(--primary); font-weight: bold; }
+        .chat-card { padding: 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; }
+        .user-pic { width: 50px; height: 50px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+        /* --- AI CHAT BUTTON (Exactly where you marked) --- */
+        .ai-fab { 
+            position: fixed; 
+            bottom: 100px; 
+            right: 20px; 
+            width: 60px; 
+            height: 60px; 
+            background: var(--primary); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-size: 24px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            z-index: 999; 
+        }
+
+        /* Bottom Navigation */
+        .nav { background: white; height: 80px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; position: fixed; bottom: 0; width: 100%; }
+        .nav-item { text-align: center; color: #667781; flex: 1; }
+        .nav-item i { display: block; font-size: 20px; margin-bottom: 3px; }
+        .active { color: var(--primary); }
+
+        /* Chat View */
+        #chat-view { display: none; flex-direction: column; height: 100%; width: 100%; position: fixed; inset: 0; background: var(--chat-bg); z-index: 2000; }
+        .chat-header { padding: 10px; background: #f0f2f5; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #ddd; }
+        .messages { flex: 1; padding: 15px; overflow-y: auto; }
+        .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 8px; max-width: 80%; font-size: 15px; }
+        .sent { background: #d9fdd3; align-self: flex-end; margin-left: auto; }
+
+        /* Input Bar (Zoom Fixed) */
+        .input-bar { padding: 8px; background: #f0f2f5; display: flex; align-items: center; gap: 8px; }
+        .input-box { flex: 1; background: white; border-radius: 25px; padding: 10px 15px; }
+        .input-box input { width: 100%; border: none; outline: none; font-size: 16px; } /* font-size 16px prevents zoom on iOS/Android */
+        .send-btn { width: 45px; height: 45px; background: var(--primary); color: white; border: none; border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+    <div id="main-view">
+        <div class="header">
+            <h1>WhatsApp Pro</h1>
+            <div><i class="fas fa-search"></i></div>
+        </div>
+
+        <div class="chat-list">
+            <div class="section-label">AI CHAT</div>
+            <div class="chat-card" onclick="openChat('AI Assistant')">
+                <div class="user-pic"><i class="fas fa-robot"></i></div>
+                <div><h4>AI Assistant (IB)</h4><p>Sajid Bhai, buttons fixed! ✅</p></div>
+            </div>
+            
+            <div class="section-label">GROUPS</div>
+            <div class="chat-card" onclick="openChat('Sajid Tech Group')">
+                <div class="user-pic" style="background:var(--primary); color:white;"><i class="fas fa-users"></i></div>
+                <div><h4>Sajid Tech Group</h4><p>Shakeel: Typing is easy now.</p></div>
+            </div>
+        </div>
+
+        <div class="ai-fab" onclick="openChat('AI Assistant')">
+            <i class="fas fa-robot"></i>
+        </div>
+
+        <div class="nav">
+            <div class="nav-item active"><i class="fas fa-users"></i><span>Groups</span></div>
+            <div class="nav-item"><i class="fas fa-circle-notch"></i><span>States</span></div>
+            <div class="nav-item"><i class="fas fa-phone"></i><span>Calls</span></div>
+        </div>
+    </div>
+
+    <div id="chat-view">
+        <div class="chat-header">
+            <i class="fas fa-arrow-left" onclick="closeChat()" style="padding:10px; cursor:pointer;"></i>
+            <h3 id="chat-name">User</h3>
+        </div>
+        <div class="messages" id="box"></div>
+        <div class="input-bar">
+            <div class="input-box">
+                <input type="text" id="in" placeholder="Message" autocomplete="off">
+            </div>
+            <button class="send-btn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function openChat(name) {
+            document.getElementById('chat-name').innerText = name;
+            document.getElementById('chat-view').style.display = 'flex';
+        }
+        function closeChat() { document.getElementById('chat-view').style.display = 'none'; }
+        function send() {
+            const i = document.getElementById('in');
+            if(i.value.trim() !== "") {
+                const d = document.createElement('div');
+                d.className = 'msg sent'; d.innerText = i.value;
+                document.getElementById('box').appendChild(d);
+                i.value = "";
+                document.getElementById('box').scrollTop = document.getElementById('box').scrollHeight;
+            }
+        }
+    </script>
+</body>
+  </html>
+              
